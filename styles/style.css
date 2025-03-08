@@ -298,7 +298,12 @@ a {
 }
 
 .content__video-card-description {
-  /* -webkit-line-clamp: 3; */
+  width: 180px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: normal;
 }
 
