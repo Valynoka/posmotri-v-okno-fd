@@ -8,11 +8,6 @@
   outline: none;
 }
 
-*:focus-visible {
-  outline: 1px solid white;
-  outline-offset: 1px;
-}
-
 html {
   block-size: 100%;
 }
@@ -55,10 +50,10 @@ a {
 
 /* Общие стили */
 .button {
+  font-family: 'Fira Sans Condensed', sans-serif;
   background-color: inherit;
   color: white;
-    /* по фигме шрифт больше */
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   border: 1px solid white;
@@ -72,10 +67,9 @@ a {
   text-decoration: underline;
 }
 
-.border-visible {
-  opacity: .7;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
+.button:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: 1px;
 }
 
 /* Кастомный скроллбар */
@@ -106,34 +100,21 @@ a {
   gap: 16px;
 }
 
-/* Предпочел бы поговорить с дизайнером и оставить контент так, 
-потому что сейчас он заполняет свободое пространство и,
-в целом, выгляди хорошо, но не сходится с макетом по ПП.
-Не хочется лишний раз задавать размеры контенту */
-/* .result__video-container {
-  display: flex;
-}
-
-.result__video {
-  flex: 1;
-} */
-
-/* Для того, чтобы сошлось с макетом пришлось применять
-такую стилизацию */
+/* Если задавать размеры контейнеру с видео, то нет смысла
+писать размер */
 .result__video-container {
   position: relative;
-  height: 386px;
-  width: 711px;
-  overflow: hidden;
 }
 
-/* Надо понять как настроить controls
-не сходится с ПП */
+/* Если делать, как написано в Доке и задавать высоту и ширину
+родителю, а object писать для тега с видео - ничего не работает
+поэтому пришлось делать так */
 .result__video {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  width:100%;
+  height: 386px;
+  max-width: 711px;
 }
 
 /* Форма управления под видео */
@@ -151,18 +132,22 @@ a {
 }
 
 .search-form__textfield {
+  font-family: 'Fira Sans Condensed', sans-serif;
   background-color: inherit;
   color: #fff;
   border: none;
-  /* по фигме шрифт больше больше */
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
-  width: 225px;
+  width: 226px;
   padding: 2px 14px 3px 0;
-  /* по фигме нет, но
-  чтобы проходило по ПП пришлось делать */
-  letter-spacing: 0.2px;
   appearance: none;
+  opacity: .7;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.search-form__textfield:active {
+  outline: 1px solid #fff;
 }
 
 .search-form__textfield:focus {
@@ -172,7 +157,6 @@ a {
 .search-form__fieldset-title {
   font-size: 18px;
   font-weight: 400;
-  opacity: .7;
 }
 
 /* Кнопка */
@@ -186,9 +170,12 @@ a {
   display: flex;
   align-items: center;
   gap: 15px;
+  padding-bottom: 5px;
 }
 
-.search-form__checkbox-list:has(:hover) .search-form__label-text {
+.search-form__checkbox:hover +
+.search-form__pseudo-checkbox +
+.search-form__label-text{
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -200,7 +187,7 @@ a {
   cursor: pointer;
 }
 
-.search-form__label:has(.search-form__checkbox:focus-visible) {
+.search-form__label:has(:focus-visible) {
   outline: 1px solid white;
   outline-offset: 1px;
 }
@@ -232,13 +219,12 @@ a {
 .content__details {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .content__list-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 30px;
   height: 298px;
   overflow: auto;
@@ -251,54 +237,65 @@ a {
   font-weight: bold;
   text-transform: uppercase;
   line-height: 93%;
-  font-family: "Oswald";
+  font-family: 'Oswald', sans-serif;
 }
 
 .content__accent {
-  opacity: .2;
+  color: #545050;
 }
 
 .content__list {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 30px;
   padding: 2px 2px;
 }
 
-.content__list-item:has(.content__card-link:focus-visible) {
+.content__card-link {
+  display: block;
+}
+
+.content__card-link:focus-visible {
   outline: 1px solid #fff;
 }
 
-.content__list-item:active {
+.content__card-link_current {
   background-color: #545050;
 }
 
-.content__list-item:hover {
-  text-decoration: underline;
-  text-underline-offset: 6px;
+.content__card-link:active {
+  background-color: #545050;
 }
 
 /* Списки карточек */
 .content__video-card {
   display: flex;
   justify-content: space-between;
-  gap: 4px;
+}
+
+.content__video-card:hover {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
 }
 
 .content__video-card-title {
-  font-family: "Oswald";
+  font-family: 'Oswald', sans-serif;
   font-size: 30px;
   text-transform: uppercase;
-  /* Использовал, чтобы подогнать под макет */
-  margin-bottom: -4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 190px;
+  max-width: 190px;
+  width: 100%;
+  line-height: 1;
 }
 
 .content__video-card-description {
-  width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 180px;
+  width: 100%;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -308,8 +305,10 @@ a {
 }
 
 .content__video-card-thumbnail {
-  width: 194px;
-  height: 103px;
+  max-width: 194px;
+  width: 100%;
+  max-height: 103px;
+  height: 100%;
 }
 
 .more-button {
