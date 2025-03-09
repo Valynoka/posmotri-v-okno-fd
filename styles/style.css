@@ -173,9 +173,7 @@ a {
   padding-bottom: 5px;
 }
 
-.search-form__checkbox:hover +
-.search-form__pseudo-checkbox +
-.search-form__label-text{
+.search-form__label:hover .search-form__label-text{
   text-decoration: underline;
   text-underline-offset: 4px;
 }
@@ -267,15 +265,15 @@ a {
   background-color: #545050;
 }
 
+.content__card-link:hover {
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+
 /* Списки карточек */
 .content__video-card {
   display: flex;
   justify-content: space-between;
-}
-
-.content__video-card:hover {
-  text-decoration: underline;
-  text-decoration-skip-ink: none;
 }
 
 .content__video-card-title {
